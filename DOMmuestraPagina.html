@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto DOM</title>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jth.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Esto es un ejemplo de DOM</h1>
+        <h2>Jacinto Tárraga Hernández 28/Enero/2017</h2>
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
+                <input type="button" class="btn btn-primary" id="domExample" value="Ejemplo de DOM">
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    document.getElementById('domExample').onclick = ejemploDOM;
+
+    function ejemploDOM() {
+        if (document.getElementById('ejemploDom')) {
+            document.getElementById('ejemploDom').remove();
+        } else {
+            var nuevoDiv = document.createElement('DIV');
+            nuevoDiv.id = 'ejemploDom';
+            nuevoDiv.style.marginTop = "100px";
+            document.body.appendChild(nuevoDiv);
+
+            escribeNodos(document, nuevoDiv);
+        }
+    }
+
+    function escribeNodos(elemento, donde) {
+        if (elemento.id != 'ejemploDom') {
+
+            var lista = document.createElement('UL');
+            donde.appendChild(lista);
+            for (var contador = 0; contador < elemento.childNodes.length; contador++) {
+
+                var ele = document.createElement('LI');
+                var texto = '';
+                if (elemento.childNodes[contador].nodeType == 1) {
+                    // texto = document.createTextNode('Tipo1: ' + elemento.childNodes[contador].nodeName);
+                    ele.className='list-group-item-danger';
+                    texto = document.createTextNode(elemento.childNodes[contador].nodeName);
+
+                } else if (elemento.childNodes[contador].nodeType == 3) {
+                    // texto = document.createTextNode('Tipo3: ' + elemento.childNodes[contador].nodeValue.toString().trim().length + '??' + elemento.childNodes[contador].nodeType + elemento.childNodes[contador].nodeName + elemento.childNodes[contador].nodeValue);
+                    if (elemento.childNodes[contador].nodeValue.toString().trim().length > 0) {
+                        ele.className='list-group-item-warning';
+                        texto = document.createTextNode(elemento.childNodes[contador].nodeValue);
+                    }
+                    // } else if (elemento.childNodes[contador].nodeName!='#text') {
+                } else {
+                    texto = document.createTextNode(elemento.childNodes[contador].nodeName);
+                    ele.className='list-group-item-info';
+                }
+
+                if (texto.length > 0) {
+                    lista.appendChild(ele);
+                    ele.appendChild(texto);
+                } else {
+                    console.log('Something went wrong');
+                }
+
+                if (elemento.childNodes[contador].nodeType == 1) {
+                    if (elemento.childNodes[contador].attributes.length > 0) {
+                        var listaAtributos = document.createElement('UL');
+                        ele.appendChild(listaAtributos);
+                        var texto2 = '';
+                        for (var contador2 = 0; contador2 < elemento.childNodes[contador].attributes.length; contador2++) {
+                            var listaAtributosElemento = document.createElement('LI');
+                            listaAtributosElemento.className='list-group-item-success';
+                            listaAtributos.appendChild(listaAtributosElemento);
+                            texto2 = document.createTextNode('(' + elemento.childNodes[contador].attributes[contador2].name + ':' + elemento.childNodes[contador].attributes[contador2].value + ')');
+                            listaAtributosElemento.appendChild(texto2);
+                        }
+                    }
+                }
+
+                escribeNodos(elemento.childNodes[contador], ele);
+            }
+        }
+    }
+</script>
+<script type="text/javascript" src="js/proyecto.js"></script>
+</html>

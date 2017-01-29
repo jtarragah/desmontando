@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto ejemplo calculadora</title>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jth.css">
+    <style>
+    input{
+        width: 100%;
+    }
+    #teclado {
+        width: 200px;
+        margin: 150px auto;
+        border: 2px solid rgba(0,0,0,0.7);
+        box-shadow: 5px 5px 5px rgba(0,0,0,0.7);
+    }
+    #resultado {
+        background-color: #aaa;
+        border: 1px solid rgba(0,0,0,0.7);
+        font-size: 2rem;
+        color: #fff;
+        text-shadow: 1px 1px rgba(0,0,0,0.7);
+        padding:5px;
+    }
+    .pressed {
+        box-shadow: 0px 0px 10px red;
+        transform: scale(1.5);
+    }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Calculadora con javascript, DOM y bootstrap</h1>
+        <h2>Jacinto Tárraga Hernández 28/Enero/2017</h2>
+        <div id="teclado">
+            <table class="table">
+                <tr>
+                    <td colspan="4"><input type="text" id="resultado"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" class="btn btn-primary" value="7" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-primary" value="8" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-primary" value="9" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-warning" value="/" onclick="botonOperacionPressed(this)"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" class="btn btn-primary" value="4" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-primary" value="5" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-primary" value="6" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-warning" value="*" onclick="botonOperacionPressed(this);"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" class="btn btn-primary" value="1" onclick="botonDigitoPressed(this)" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-primary" value="2" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-primary" value="3" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-warning" value="-" onclick="botonOperacionPressed(this);"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="button" class="btn btn-primary" value="0" onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-primary" value="." onclick="botonDigitoPressed(this)"></td>
+                    <td><input type="button" class="btn btn-warning" value="+" onclick="botonOperacionPressed(this);"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="button" class="btn btn-danger" value="C" onclick="botonOperacionPressed(this);"></td>
+                    <td colspan="2"><input type="button" class="btn btn-danger" value="=" onclick="botonOperacionPressed(this);"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+<script>
+var accu=0;
+var buttonPressed;
+var deboBorrar = false;
+limpiaPantalla();
+
+
+function limpiaPantalla(){
+    document.getElementById('resultado').value="0";
+}
+
+function quitaBotonPresionado(){
+    if (buttonPressed) {
+        buttonPressed.classList.remove('pressed');
+        buttonPressed='';
+    }
+}
+
+function botonDigitoPressed(boton){
+    if (deboBorrar) {
+        limpiaPantalla();
+        deboBorrar=false;
+    }
+    if (document.getElementById('resultado').value=='0' && boton.value!='.') {
+        document.getElementById('resultado').value=boton.value;
+    } else {
+        document.getElementById('resultado').value+=boton.value;
+    }
+}
+
+
+
+function botonOperacionPressed(boton){
+
+    if (boton.value=='C') {
+        limpiaPantalla();
+        quitaBotonPresionado();
+        accu=0;
+    } else if (boton.value=='=') {
+        if (buttonPressed) {
+            var segundo = parseFloat(document.getElementById('resultado').value);
+            var resultado;
+            resultado = eval(accu + buttonPressed.value + segundo);
+            accu=resultado;
+            document.getElementById('resultado').value = resultado;
+            quitaBotonPresionado();
+            deboBorrar=true;
+        }
+    } else {
+        quitaBotonPresionado();
+        boton.classList.add('pressed');
+        buttonPressed=boton;
+        accu = parseFloat(document.getElementById('resultado').value);
+        deboBorrar=true;
+    }
+
+}
+
+</script>
+<script type="text/javascript" src="js/proyecto.js"></script>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto ejemplo ordena listas</title>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jth.css">
+    <style type="text/css">
+        input[type="button"] {
+            width: 50%;
+        }
+    </style>
+
+
+    <script>
+        function ordena(lista) {
+            var elementos = lista.getElementsByTagName('LI');
+            var contador_i;
+            var contador_j;
+            var elemento;
+
+            for (contador_j = 0; contador_j < elementos.length - 1; contador_j++) {
+
+                var indiceValorMasBajo = contador_j;
+                elemento = elementos[contador_j].innerHTML;
+
+                for (contador_i = contador_j + 1; contador_i < elementos.length; contador_i++) {
+
+                    if (document.getElementsByName('ordenacion')[0].checked &&
+                        document.getElementsByName('ordenacion')[0].value == 'asc' &&
+                        elementos[contador_i].innerHTML.localeCompare(elementos[indiceValorMasBajo].innerHTML) < 0) {
+                        indiceValorMasBajo = contador_i;
+                    }
+
+                    if (document.getElementsByName('ordenacion')[1].checked &&
+                        document.getElementsByName('ordenacion')[1].value == 'desc' &&
+                        elementos[contador_i].innerHTML.localeCompare(elementos[indiceValorMasBajo].innerHTML) > 0) {
+                        indiceValorMasBajo = contador_i;
+                    }
+
+                }
+
+
+
+                if (indiceValorMasBajo != contador_j) {
+                    exchangeElements(elementos[contador_j], elementos[indiceValorMasBajo]);
+                }
+            }
+
+
+        }
+
+
+        function exchangeElements(element1, element2) {
+            var clonedElement1 = element1.cloneNode(true);
+            var clonedElement2 = element2.cloneNode(true);
+
+            element2.parentNode.replaceChild(clonedElement1, element2);
+            element1.parentNode.replaceChild(clonedElement2, element1);
+
+            return clonedElement1;
+        }
+    </script>
+</head>
+
+
+
+<body>
+
+    <div class="container-fluid">
+        <h1>Ordena listas UL, OL, con javascript, DOM y bootstrap</h1>
+        <h2>Jacinto Tárraga Hernández 29/Enero/2017</h2>
+
+
+
+        <div class="panel panel-default col-sm-4 col-sm-offset-4">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center;font-weight: 800;">Ordenación</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <label><input type="radio" name="ordenacion" value="asc" checked="checked">Ascendente</label>
+                </div>
+                <div class="col-sm-3">
+                    <label><input type="radio" name="ordenacion" value="desc">Descendente</label>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-6 col-lg-3 col-lg-offset-3">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Lista UL(unsortered list)</h3>
+                    <input type="button" value="Ordena" name="ordenaUL" class="btn btn-primary" onclick="ordena(document.getElementsByTagName('UL')[0]);">
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <li>Keylor Navas</li>
+                        <li>Kiko Casilla</li>
+                        <li>Rubén Yáñez</li>
+                        <li>Daniel Carvajal</li>
+                        <li>Képler Lima Pepe</li>
+                        <li>Sergio Ramos</li>
+                        <li>Raphaël Varane</li>
+                        <li>Nacho Fernández</li>
+                        <li>Marcelo Vieira</li>
+                        <li>Fábio Coentrão</li>
+                        <li>Danilo da Silva</li>
+                        <li>Toni Kroos</li>
+                        <li>James Rodríguez</li>
+                        <li>Carlos Henrique Casemiro</li>
+                        <li>Mateo Kovačić</li>
+                        <li>Luka Modrić</li>
+                        <li>Marco Asensio</li>
+                        <li>Isco Alarcón</li>
+                        <li>Cristiano Ronaldo</li>
+                        <li>Karim Benzema</li>
+                        <li>Gareth Bale</li>
+                        <li>Lucas Vázquez</li>
+                        <li>Mariano Díaz</li>
+                        <li>Álvaro Morata</li>
+                        <li>Marcos Llorente</li>
+                        <li>Diego Llorente</li>
+                        <li>Jesús Vallejo</li>
+                        <li>Jorge Franco Burgui</li>
+                        <li>Borja Mayoral</li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-sm-6 col-lg-3">
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Lista OL(ordered list)</h3>
+                    <input type="button" value="Ordena" name="ordenaOL" class="btn btn-primary" onclick="ordena(document.getElementsByTagName('OL')[0]);">
+                </div>
+                <div class="panel-body">
+                    <ol>
+                        <li>Keylor Navas</li>
+                        <li>Kiko Casilla</li>
+                        <li>Rubén Yáñez</li>
+                        <li>Daniel Carvajal</li>
+                        <li>Képler Lima Pepe</li>
+                        <li>Sergio Ramos</li>
+                        <li>Raphaël Varane</li>
+                        <li>Nacho Fernández</li>
+                        <li>Marcelo Vieira</li>
+                        <li>Fábio Coentrão</li>
+                        <li>Danilo da Silva</li>
+                        <li>Toni Kroos</li>
+                        <li>James Rodríguez</li>
+                        <li>Carlos Henrique Casemiro</li>
+                        <li>Mateo Kovačić</li>
+                        <li>Luka Modrić</li>
+                        <li>Marco Asensio</li>
+                        <li>Isco Alarcón</li>
+                        <li>Cristiano Ronaldo</li>
+                        <li>Karim Benzema</li>
+                        <li>Gareth Bale</li>
+                        <li>Lucas Vázquez</li>
+                        <li>Mariano Díaz</li>
+                        <li>Álvaro Morata</li>
+                        <li>Marcos Llorente</li>
+                        <li>Diego Llorente</li>
+                        <li>Jesús Vallejo</li>
+                        <li>Jorge Franco Burgui</li>
+                        <li>Borja Mayoral</li>
+                    </ol>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</body>
+<script type="text/javascript" src="js/proyecto.js"></script>
+</html>

@@ -1,156 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Proyecto HTML5, CSS3, DOM, NODEJS, GIT, HEROKU</title>
+	<meta charset="UTF-8">
+	<title>Listado de proyectos ejemplo mios</title>
     <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <script type="text/javascript" src="js/bootstrap.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="css/jth.css">
     <style>
-        body {
-            background-color: #eeeeee;
-        }
-        
-        h1 {
-            color: red;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-            font-size: 4rem;
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        #formulario {
-            text-align: center;
-            padding: 50px;
-            border: 2px solid blue;
-            border-radius: 10px;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
-        }
-        
-        input {
-            width: 100%;
-        }
-        
-        iframe {
-            width: 100vw;
-            height: 20vw;
-        }
+    h1 {
+    	font-size: 4rem;
+    }
+    h2 {
+    	font-size: 3rem;
+    }
+    a {
+    	font-size: 3rem;
+    }
     </style>
-
 </head>
-
 <body>
-    <div class="container-fluid">
-        <h1 onmouseover="efectoLetras(this);">Bienvenido a desmontando la web</h1>
-        <div class="row">
-            <div class="col-lg-4 col-lg-offset-4">
-                <div id="formulario">
-                    <h2>Introduzca la url de la web</h2>
-                    <input type="text" name="url" placeholder="url">
-                    <hr>
-                    <input type="button" value="Enviar" class="btn btn-primary" onclick="openUrl(document.getElementsByName('url')[0].value);">
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
-                <input type="button" class="btn btn-primary" id="domExample" value="Ejemplo de DOM">
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-sm-4 col-sm-offset-4">
+			<h1>Varios proyectos/ejemplo</h1>
+			<h2>según la última formación recibida</h2>
+			<h2>en javascript, DOM, HTML, CSS3, bootstrap</h2>
+			<hr>
+			<ul>
+				<li><a href="DOMMuestraPagina.html">DOM - Muestra nodos de la página</a></li>
+				<li><a href="jsAbreUrl.html">JS - Abre url en iframe</a></li>
+				<li><a href="jsCalculadora.html">JS - Calculadora</a></li>
+                <li><a href="DOMordenaListas.html">DOM - Ordena en pantalla listas UL y OL</a></li>
+			</ul>
+		</div>
+	</div>
 </body>
-
-<script>
-    function openUrl(url) {
-        window.open(url, "_blank");
-    }
-    // function efectoLetras(elemento) {
-    // 	var texto = elemento.innerHTML;
-    // 	console.log(texto);
-    // 	var clonado = elemento.clone
-    // 	elemento.firstChild='';
-
-    // 	for (let contador=0; contador<texto.length ; contador++) {
-    // 	// 	console.log(texto[contador]);
-    // 		elemento.firstChild = elemento.firstChild + ' ' + texto[contador];
-    // 	}
-    // }
-
-
-    document.getElementById('domExample').onclick = ejemploDOM();
-
-    function ejemploDOM() {
-        var nuevoDiv = document.createElement('DIV');
-        nuevoDiv.className = 'col-lg-12';
-        nuevoDiv.style.width = '100%';
-        nuevoDiv.style.border = '2px solid lightblue';
-        nuevoDiv.id = 'ejemploDom';
-        console.log(nuevoDiv);
-        document.body.appendChild(nuevoDiv);
-
-        escribeNodos(document, nuevoDiv);
-    }
-
-    function escribeNodos(elemento, donde) {
-        if (elemento.id != 'ejemploDom') {
-
-            // console.log('Elemento: ' + elemento);
-            // console.log('Donde:' + donde);
-            var lista = document.createElement('UL');
-            donde.appendChild(lista);
-            for (var contador = 0; contador < elemento.childNodes.length; contador++) {
-                // console.log(elemento.childNodes[contador]);
-
-                var ele = document.createElement('LI');
-
-                // console.log(elemento.childNodes[contador]);
-
-                var texto='';
-				if (elemento.childNodes[contador].nodeType == 1) {
-					console.log('NodeType:' + elemento.childNodes[contador].nodeType);
-					console.log('NodeName:' + elemento.childNodes[contador].nodeName);
-					console.log('NodeValue:' + elemento.childNodes[contador].nodeValue);
-
-                    // texto = document.createTextNode('Tipo1: ' + elemento.childNodes[contador].nodeName);
-                    texto = document.createTextNode(elemento.childNodes[contador].nodeName);
-                } else if (elemento.childNodes[contador].nodeType == 3)  {
-   	                // texto = document.createTextNode('Tipo3: ' + elemento.childNodes[contador].nodeValue.toString().trim().length + '??' + elemento.childNodes[contador].nodeType + elemento.childNodes[contador].nodeName + elemento.childNodes[contador].nodeValue);
-   	                if (elemento.childNodes[contador].nodeValue.toString().trim().length>0) {
-   	                	texto = document.createTextNode(elemento.childNodes[contador].nodeValue);
-   	                }
-                // } else if (elemento.childNodes[contador].nodeName!='#text') {
-                } else {
-                     texto = document.createTextNode('*************************************' + elemento.childNodes[contador].nodeName + elemento.childNodes[contador].nodeValue);
-                }
-
-                if (texto.length>0) {
-	                lista.appendChild(ele);
-                	ele.appendChild(texto);
-                } else {
-                	console.log('Algo ha pasado');
-                }
-
-                if (elemento.childNodes[contador].nodeType==1) {
-	                if (elemento.childNodes[contador].attributes.length>0){
-	                	var listaAtributos = document.createElement('UL');
-	                	ele.appendChild(listaAtributos);
-	                	var texto2='';
-	                	for ( var contador2=0; contador2<elemento.childNodes[contador].attributes.length; contador2++ ) {
-	                		var listaAtributosElemento = document.createElement('LI');
-	                		listaAtributos.appendChild(listaAtributosElemento);
-	                		texto2= document.createTextNode('(' + elemento.childNodes[contador].attributes[contador2].name + ':' + elemento.childNodes[contador].attributes[contador2].value + ')');
-	                		listaAtributosElemento.appendChild(texto2);
-	                	}
-	                }
-	            }
-
-                escribeNodos(elemento.childNodes[contador], ele);
-            }
-        }
-    }
-</script>
-
+<script type="text/javascript" src="js/proyecto.js"></script>
 </html>

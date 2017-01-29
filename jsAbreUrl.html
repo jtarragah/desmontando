@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto Javascript</title>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jth.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Abriendo una URL con javascript</h1>
+        <h2>Jacinto Tárraga Hernández 28/Enero/2017</h2>
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-4">
+                <div id="formulario">
+                    <h2>Introduzca la url de la web</h2>
+                    <input type="text" name="url" placeholder="http://">
+                    <hr>
+                    <input type="button" value="Enviar" class="btn btn-primary" onclick="openUrl();">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="iframeDiv">
+        <iframe id="iframeTarget"></iframe>
+    </div>
+</body>
+
+<script>
+
+    function openUrl() {
+        var iframeTarget = document.getElementById('iframeTarget');
+        var formulario = document.getElementById('formulario');
+        var fieldUrl;
+        for (var contador = 0; contador < formulario.childNodes.length; contador++) {
+            if (formulario.childNodes[contador].name == 'url') {
+                fieldUrl = formulario.childNodes[contador];
+            }
+        }
+        // fieldUrl = document.getElementsByName('url')[0];
+        var url = fieldUrl.value;
+        if (esUrlValida(url)){
+            iframeTarget.src = url;
+        } else {
+            alert('Debe introducir una dirección válida que comience por http:// o https://');
+        }
+    }
+
+    function esUrlValida(url){
+        if(!String.prototype.startsWith){
+            String.prototype.startsWith = function (str) {
+                return !this.indexOf(str);
+            };
+        }
+
+        if ( url && ( url.toLowerCase().startsWith('http://') ||  url.toLowerCase().startsWith('https://') ) )  {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+<script type="text/javascript" src="js/proyecto.js"></script>
+</html>
